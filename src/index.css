@@ -13,15 +13,18 @@ code {
 }
 
 span {
+  display: flex;
+  justify-content: center;
   color: red;
   font-size: 40px;
   font-weight: bold;
-  margin: 50px;
+  margin-top: 30px;
 }
 
 .buttons {
   display: flex;
   flex-direction: row;
+  justify-content: center;
 }
 
 button {
