@@ -3,7 +3,7 @@ import {createStore} from './redux';
 
 const initialState = { count: 0 };
 
-function reducer(state = { count: 0 }, action) { // определили {} по умолчанию, если польз. не предоставит начальн.сост-ние
+function reducer(state = { count: 0 }, action) {
   switch (action.type) {
     case 'INCREMENT': return { count: state.count + action.amount };
     case 'DECREMENT': return { count: state.count - action.amount };
@@ -12,8 +12,8 @@ function reducer(state = { count: 0 }, action) { // определили {} по
   }
 }
 
-function increment(amount) {
-  return { type: 'INCREMENT', amount};
+function increment(amount) { //определили ф-ции вместо констант
+  return { type: 'INCREMENT', amount}; // такие ф-ции в redux наз. action creators(создатели действий); лучше их вынести в отдельный файл
 }
 
 function decrement(amount) {
@@ -24,7 +24,7 @@ function reset(amount) {
   return { type: 'RESET'};
 }
 
-const store = createStore(reducer, initialState); //- если пользователь не предоставит начальное состояние
+const store = createStore(reducer, initialState);
 
 class Counter extends Component {
     constructor(props) {
@@ -41,11 +41,11 @@ class Counter extends Component {
 
     increment() {
       const amount = parseInt(this.refs.amount.value || 1); //перевели строку в число
-      store.dispatch(increment(amount));  
+      store.dispatch(increment(amount)); // в dispatch, все так же, отправляются обьекты, но уже возвращаемые ф-циями
     }
 
     decrement() {
-      const amount = parseInt(this.refs.amount.value || 1);
+      const amount = parseInt(this.refs.amount.value || 1); 
       store.dispatch(decrement(amount));  
     }
 
@@ -54,9 +54,7 @@ class Counter extends Component {
     }
 
     render() {
-      const count = store.getState().count; // получаем доступ к состоянию через getState(), 
-                  // но, в момент первого вывода компонента, обьект состояния еще не был инициализирован,
-                  // поэтому будет ошибка. нужно в redux.js вызвать dispatch({});
+      const count = store.getState().count; 
         return (
           <div className = 'counter'>
               <span className = 'count'>{count}</span>
@@ -64,11 +62,11 @@ class Counter extends Component {
               <div className = "buttons">
                   <button className = "decrement" onClick = {this.decrement}>-</button>
                   <button className = "reset" onClick = {this.reset}>R</button>
-                  <button className = "increment" onClick = {this.increment}>+</button>
+                  <button className = "increment" onClick = {this.increment}>+</button> 
               </div>
-              <input type='text' ref='amount' defaultValue='1' />
+              <input type='text' ref='amount' defaultValue='1' /> 
           </div>
-        );
+        ); // добавили input 
     }
 } 
 
